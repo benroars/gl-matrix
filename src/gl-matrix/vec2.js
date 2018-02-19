@@ -1,3 +1,73 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.forEach = exports.sqrLen = exports.sqrDist = exports.dist = exports.div = exports.mul = exports.sub = exports.len = undefined;
+exports.create = create;
+exports.clone = clone;
+exports.fromValues = fromValues;
+exports.copy = copy;
+exports.set = set;
+exports.add = add;
+exports.subtract = subtract;
+exports.multiply = multiply;
+exports.divide = divide;
+exports.ceil = ceil;
+exports.floor = floor;
+exports.min = min;
+exports.max = max;
+exports.round = round;
+exports.scale = scale;
+exports.scaleAndAdd = scaleAndAdd;
+exports.distance = distance;
+exports.squaredDistance = squaredDistance;
+exports.length = length;
+exports.squaredLength = squaredLength;
+exports.negate = negate;
+exports.inverse = inverse;
+exports.normalize = normalize;
+exports.dot = dot;
+exports.cross = cross;
+exports.lerp = lerp;
+exports.random = random;
+exports.transformMat2 = transformMat2;
+exports.transformMat2d = transformMat2d;
+exports.transformMat3 = transformMat3;
+exports.transformMat4 = transformMat4;
+exports.str = str;
+exports.exactEquals = exactEquals;
+exports.equals = equals;
+
+var _common = require('./common');
+
+var glMatrix = _interopRequireWildcard(_common);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+/**
+ * 2 Dimensional Vector
+ * @module vec2
+ */
+
+/**
+ * Creates a new, empty vec2
+ *
+ * @returns {vec2} a new 2D vector
+ */
+function create() {
+  var out = new glMatrix.ARRAY_TYPE(2);
+  out[0] = 0;
+  out[1] = 0;
+  return out;
+}
+
+/**
+ * Creates a new vec2 initialized with values from an existing vector
+ *
+ * @param {vec2} a vector to clone
+ * @returns {vec2} a new 2D vector
+ */
 /* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -18,33 +88,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. */
 
-import * as glMatrix from "./common";
-
-/**
- * 2 Dimensional Vector
- * @module vec2
- */
-
-/**
- * Creates a new, empty vec2
- *
- * @returns {vec2} a new 2D vector
- */
-export function create() {
-  let out = new glMatrix.ARRAY_TYPE(2);
-  out[0] = 0;
-  out[1] = 0;
-  return out;
-}
-
-/**
- * Creates a new vec2 initialized with values from an existing vector
- *
- * @param {vec2} a vector to clone
- * @returns {vec2} a new 2D vector
- */
-export function clone(a) {
-  let out = new glMatrix.ARRAY_TYPE(2);
+function clone(a) {
+  var out = new glMatrix.ARRAY_TYPE(2);
   out[0] = a[0];
   out[1] = a[1];
   return out;
@@ -57,8 +102,8 @@ export function clone(a) {
  * @param {Number} y Y component
  * @returns {vec2} a new 2D vector
  */
-export function fromValues(x, y) {
-  let out = new glMatrix.ARRAY_TYPE(2);
+function fromValues(x, y) {
+  var out = new glMatrix.ARRAY_TYPE(2);
   out[0] = x;
   out[1] = y;
   return out;
@@ -71,7 +116,7 @@ export function fromValues(x, y) {
  * @param {vec2} a the source vector
  * @returns {vec2} out
  */
-export function copy(out, a) {
+function copy(out, a) {
   out[0] = a[0];
   out[1] = a[1];
   return out;
@@ -85,7 +130,7 @@ export function copy(out, a) {
  * @param {Number} y Y component
  * @returns {vec2} out
  */
-export function set(out, x, y) {
+function set(out, x, y) {
   out[0] = x;
   out[1] = y;
   return out;
@@ -99,7 +144,7 @@ export function set(out, x, y) {
  * @param {vec2} b the second operand
  * @returns {vec2} out
  */
-export function add(out, a, b) {
+function add(out, a, b) {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   return out;
@@ -113,7 +158,7 @@ export function add(out, a, b) {
  * @param {vec2} b the second operand
  * @returns {vec2} out
  */
-export function subtract(out, a, b) {
+function subtract(out, a, b) {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   return out;
@@ -127,7 +172,7 @@ export function subtract(out, a, b) {
  * @param {vec2} b the second operand
  * @returns {vec2} out
  */
-export function multiply(out, a, b) {
+function multiply(out, a, b) {
   out[0] = a[0] * b[0];
   out[1] = a[1] * b[1];
   return out;
@@ -141,7 +186,7 @@ export function multiply(out, a, b) {
  * @param {vec2} b the second operand
  * @returns {vec2} out
  */
-export function divide(out, a, b) {
+function divide(out, a, b) {
   out[0] = a[0] / b[0];
   out[1] = a[1] / b[1];
   return out;
@@ -154,7 +199,7 @@ export function divide(out, a, b) {
  * @param {vec2} a vector to ceil
  * @returns {vec2} out
  */
-export function ceil(out, a) {
+function ceil(out, a) {
   out[0] = Math.ceil(a[0]);
   out[1] = Math.ceil(a[1]);
   return out;
@@ -167,7 +212,7 @@ export function ceil(out, a) {
  * @param {vec2} a vector to floor
  * @returns {vec2} out
  */
-export function floor(out, a) {
+function floor(out, a) {
   out[0] = Math.floor(a[0]);
   out[1] = Math.floor(a[1]);
   return out;
@@ -181,7 +226,7 @@ export function floor(out, a) {
  * @param {vec2} b the second operand
  * @returns {vec2} out
  */
-export function min(out, a, b) {
+function min(out, a, b) {
   out[0] = Math.min(a[0], b[0]);
   out[1] = Math.min(a[1], b[1]);
   return out;
@@ -195,7 +240,7 @@ export function min(out, a, b) {
  * @param {vec2} b the second operand
  * @returns {vec2} out
  */
-export function max(out, a, b) {
+function max(out, a, b) {
   out[0] = Math.max(a[0], b[0]);
   out[1] = Math.max(a[1], b[1]);
   return out;
@@ -208,7 +253,7 @@ export function max(out, a, b) {
  * @param {vec2} a vector to round
  * @returns {vec2} out
  */
-export function round (out, a) {
+function round(out, a) {
   out[0] = Math.round(a[0]);
   out[1] = Math.round(a[1]);
   return out;
@@ -222,7 +267,7 @@ export function round (out, a) {
  * @param {Number} b amount to scale the vector by
  * @returns {vec2} out
  */
-export function scale(out, a, b) {
+function scale(out, a, b) {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   return out;
@@ -237,9 +282,9 @@ export function scale(out, a, b) {
  * @param {Number} scale the amount to scale b by before adding
  * @returns {vec2} out
  */
-export function scaleAndAdd(out, a, b, scale) {
-  out[0] = a[0] + (b[0] * scale);
-  out[1] = a[1] + (b[1] * scale);
+function scaleAndAdd(out, a, b, scale) {
+  out[0] = a[0] + b[0] * scale;
+  out[1] = a[1] + b[1] * scale;
   return out;
 };
 
@@ -250,10 +295,10 @@ export function scaleAndAdd(out, a, b, scale) {
  * @param {vec2} b the second operand
  * @returns {Number} distance between a and b
  */
-export function distance(a, b) {
+function distance(a, b) {
   var x = b[0] - a[0],
-    y = b[1] - a[1];
-  return Math.sqrt(x*x + y*y);
+      y = b[1] - a[1];
+  return Math.sqrt(x * x + y * y);
 };
 
 /**
@@ -263,10 +308,10 @@ export function distance(a, b) {
  * @param {vec2} b the second operand
  * @returns {Number} squared distance between a and b
  */
-export function squaredDistance(a, b) {
+function squaredDistance(a, b) {
   var x = b[0] - a[0],
-    y = b[1] - a[1];
-  return x*x + y*y;
+      y = b[1] - a[1];
+  return x * x + y * y;
 };
 
 /**
@@ -275,10 +320,10 @@ export function squaredDistance(a, b) {
  * @param {vec2} a vector to calculate length of
  * @returns {Number} length of a
  */
-export function length(a) {
+function length(a) {
   var x = a[0],
-    y = a[1];
-  return Math.sqrt(x*x + y*y);
+      y = a[1];
+  return Math.sqrt(x * x + y * y);
 };
 
 /**
@@ -287,10 +332,10 @@ export function length(a) {
  * @param {vec2} a vector to calculate squared length of
  * @returns {Number} squared length of a
  */
-export function squaredLength (a) {
+function squaredLength(a) {
   var x = a[0],
-    y = a[1];
-  return x*x + y*y;
+      y = a[1];
+  return x * x + y * y;
 };
 
 /**
@@ -300,7 +345,7 @@ export function squaredLength (a) {
  * @param {vec2} a vector to negate
  * @returns {vec2} out
  */
-export function negate(out, a) {
+function negate(out, a) {
   out[0] = -a[0];
   out[1] = -a[1];
   return out;
@@ -313,7 +358,7 @@ export function negate(out, a) {
  * @param {vec2} a vector to invert
  * @returns {vec2} out
  */
-export function inverse(out, a) {
+function inverse(out, a) {
   out[0] = 1.0 / a[0];
   out[1] = 1.0 / a[1];
   return out;
@@ -326,10 +371,10 @@ export function inverse(out, a) {
  * @param {vec2} a vector to normalize
  * @returns {vec2} out
  */
-export function normalize(out, a) {
+function normalize(out, a) {
   var x = a[0],
-    y = a[1];
-  var len = x*x + y*y;
+      y = a[1];
+  var len = x * x + y * y;
   if (len > 0) {
     //TODO: evaluate use of glm_invsqrt here?
     len = 1 / Math.sqrt(len);
@@ -346,7 +391,7 @@ export function normalize(out, a) {
  * @param {vec2} b the second operand
  * @returns {Number} dot product of a and b
  */
-export function dot(a, b) {
+function dot(a, b) {
   return a[0] * b[0] + a[1] * b[1];
 };
 
@@ -359,7 +404,7 @@ export function dot(a, b) {
  * @param {vec2} b the second operand
  * @returns {vec3} out
  */
-export function cross(out, a, b) {
+function cross(out, a, b) {
   var z = a[0] * b[1] - a[1] * b[0];
   out[0] = out[1] = 0;
   out[2] = z;
@@ -375,9 +420,9 @@ export function cross(out, a, b) {
  * @param {Number} t interpolation amount between the two inputs
  * @returns {vec2} out
  */
-export function lerp(out, a, b, t) {
+function lerp(out, a, b, t) {
   var ax = a[0],
-    ay = a[1];
+      ay = a[1];
   out[0] = ax + t * (b[0] - ax);
   out[1] = ay + t * (b[1] - ay);
   return out;
@@ -390,7 +435,7 @@ export function lerp(out, a, b, t) {
  * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
  * @returns {vec2} out
  */
-export function random(out, scale) {
+function random(out, scale) {
   scale = scale || 1.0;
   var r = glMatrix.RANDOM() * 2.0 * Math.PI;
   out[0] = Math.cos(r) * scale;
@@ -406,9 +451,9 @@ export function random(out, scale) {
  * @param {mat2} m matrix to transform with
  * @returns {vec2} out
  */
-export function transformMat2(out, a, m) {
+function transformMat2(out, a, m) {
   var x = a[0],
-    y = a[1];
+      y = a[1];
   out[0] = m[0] * x + m[2] * y;
   out[1] = m[1] * x + m[3] * y;
   return out;
@@ -422,9 +467,9 @@ export function transformMat2(out, a, m) {
  * @param {mat2d} m matrix to transform with
  * @returns {vec2} out
  */
-export function transformMat2d(out, a, m) {
+function transformMat2d(out, a, m) {
   var x = a[0],
-    y = a[1];
+      y = a[1];
   out[0] = m[0] * x + m[2] * y + m[4];
   out[1] = m[1] * x + m[3] * y + m[5];
   return out;
@@ -439,9 +484,9 @@ export function transformMat2d(out, a, m) {
  * @param {mat3} m matrix to transform with
  * @returns {vec2} out
  */
-export function transformMat3(out, a, m) {
+function transformMat3(out, a, m) {
   var x = a[0],
-    y = a[1];
+      y = a[1];
   out[0] = m[0] * x + m[3] * y + m[6];
   out[1] = m[1] * x + m[4] * y + m[7];
   return out;
@@ -457,9 +502,9 @@ export function transformMat3(out, a, m) {
  * @param {mat4} m matrix to transform with
  * @returns {vec2} out
  */
-export function transformMat4(out, a, m) {
-  let x = a[0];
-  let y = a[1];
+function transformMat4(out, a, m) {
+  var x = a[0];
+  var y = a[1];
   out[0] = m[0] * x + m[4] * y + m[12];
   out[1] = m[1] * x + m[5] * y + m[13];
   return out;
@@ -471,7 +516,7 @@ export function transformMat4(out, a, m) {
  * @param {vec2} a vector to represent as a string
  * @returns {String} string representation of the vector
  */
-export function str(a) {
+function str(a) {
   return 'vec2(' + a[0] + ', ' + a[1] + ')';
 }
 
@@ -482,7 +527,7 @@ export function str(a) {
  * @param {vec2} b The second vector.
  * @returns {Boolean} True if the vectors are equal, false otherwise.
  */
-export function exactEquals(a, b) {
+function exactEquals(a, b) {
   return a[0] === b[0] && a[1] === b[1];
 }
 
@@ -493,54 +538,55 @@ export function exactEquals(a, b) {
  * @param {vec2} b The second vector.
  * @returns {Boolean} True if the vectors are equal, false otherwise.
  */
-export function equals(a, b) {
-  let a0 = a[0], a1 = a[1];
-  let b0 = b[0], b1 = b[1];
-  return (Math.abs(a0 - b0) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a1), Math.abs(b1)));
+function equals(a, b) {
+  var a0 = a[0],
+      a1 = a[1];
+  var b0 = b[0],
+      b1 = b[1];
+  return Math.abs(a0 - b0) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1));
 }
 
 /**
  * Alias for {@link vec2.length}
  * @function
  */
-export const len = length;
+var len = exports.len = length;
 
 /**
  * Alias for {@link vec2.subtract}
  * @function
  */
-export const sub = subtract;
+var sub = exports.sub = subtract;
 
 /**
  * Alias for {@link vec2.multiply}
  * @function
  */
-export const mul = multiply;
+var mul = exports.mul = multiply;
 
 /**
  * Alias for {@link vec2.divide}
  * @function
  */
-export const div = divide;
+var div = exports.div = divide;
 
 /**
  * Alias for {@link vec2.distance}
  * @function
  */
-export const dist = distance;
+var dist = exports.dist = distance;
 
 /**
  * Alias for {@link vec2.squaredDistance}
  * @function
  */
-export const sqrDist = squaredDistance;
+var sqrDist = exports.sqrDist = squaredDistance;
 
 /**
  * Alias for {@link vec2.squaredLength}
  * @function
  */
-export const sqrLen = squaredLength;
+var sqrLen = exports.sqrLen = squaredLength;
 
 /**
  * Perform some operation over an array of vec2s.
@@ -554,31 +600,32 @@ export const sqrLen = squaredLength;
  * @returns {Array} a
  * @function
  */
-export const forEach = (function() {
-  let vec = create();
+var forEach = exports.forEach = function () {
+  var vec = create();
 
-  return function(a, stride, offset, count, fn, arg) {
-    let i, l;
-    if(!stride) {
+  return function (a, stride, offset, count, fn, arg) {
+    var i = void 0,
+        l = void 0;
+    if (!stride) {
       stride = 2;
     }
 
-    if(!offset) {
+    if (!offset) {
       offset = 0;
     }
 
-    if(count) {
-      l = Math.min((count * stride) + offset, a.length);
+    if (count) {
+      l = Math.min(count * stride + offset, a.length);
     } else {
       l = a.length;
     }
 
-    for(i = offset; i < l; i += stride) {
-      vec[0] = a[i]; vec[1] = a[i+1];
+    for (i = offset; i < l; i += stride) {
+      vec[0] = a[i];vec[1] = a[i + 1];
       fn(vec, vec, arg);
-      a[i] = vec[0]; a[i+1] = vec[1];
+      a[i] = vec[0];a[i + 1] = vec[1];
     }
 
     return a;
   };
-})();
+}();

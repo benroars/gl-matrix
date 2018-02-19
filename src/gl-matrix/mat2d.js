@@ -1,24 +1,38 @@
-/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
+'use strict';
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.sub = exports.mul = undefined;
+exports.create = create;
+exports.clone = clone;
+exports.copy = copy;
+exports.identity = identity;
+exports.fromValues = fromValues;
+exports.set = set;
+exports.invert = invert;
+exports.determinant = determinant;
+exports.multiply = multiply;
+exports.rotate = rotate;
+exports.scale = scale;
+exports.translate = translate;
+exports.fromRotation = fromRotation;
+exports.fromScaling = fromScaling;
+exports.fromTranslation = fromTranslation;
+exports.str = str;
+exports.frob = frob;
+exports.add = add;
+exports.subtract = subtract;
+exports.multiplyScalar = multiplyScalar;
+exports.multiplyScalarAndAdd = multiplyScalarAndAdd;
+exports.exactEquals = exactEquals;
+exports.equals = equals;
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+var _common = require('./common');
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE. */
+var glMatrix = _interopRequireWildcard(_common);
 
-import * as glMatrix from "./common";
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /**
  * 2x3 Matrix
@@ -44,8 +58,8 @@ import * as glMatrix from "./common";
  *
  * @returns {mat2d} a new 2x3 matrix
  */
-export function create() {
-  let out = new glMatrix.ARRAY_TYPE(6);
+function create() {
+  var out = new glMatrix.ARRAY_TYPE(6);
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -61,8 +75,28 @@ export function create() {
  * @param {mat2d} a matrix to clone
  * @returns {mat2d} a new 2x3 matrix
  */
-export function clone(a) {
-  let out = new glMatrix.ARRAY_TYPE(6);
+/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. */
+
+function clone(a) {
+  var out = new glMatrix.ARRAY_TYPE(6);
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -79,7 +113,7 @@ export function clone(a) {
  * @param {mat2d} a the source matrix
  * @returns {mat2d} out
  */
-export function copy(out, a) {
+function copy(out, a) {
   out[0] = a[0];
   out[1] = a[1];
   out[2] = a[2];
@@ -95,7 +129,7 @@ export function copy(out, a) {
  * @param {mat2d} out the receiving matrix
  * @returns {mat2d} out
  */
-export function identity(out) {
+function identity(out) {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -116,8 +150,8 @@ export function identity(out) {
  * @param {Number} ty Component TY (index 5)
  * @returns {mat2d} A new mat2d
  */
-export function fromValues(a, b, c, d, tx, ty) {
-  let out = new glMatrix.ARRAY_TYPE(6);
+function fromValues(a, b, c, d, tx, ty) {
+  var out = new glMatrix.ARRAY_TYPE(6);
   out[0] = a;
   out[1] = b;
   out[2] = c;
@@ -139,7 +173,7 @@ export function fromValues(a, b, c, d, tx, ty) {
  * @param {Number} ty Component TY (index 5)
  * @returns {mat2d} out
  */
-export function set(out, a, b, c, d, tx, ty) {
+function set(out, a, b, c, d, tx, ty) {
   out[0] = a;
   out[1] = b;
   out[2] = c;
@@ -156,12 +190,16 @@ export function set(out, a, b, c, d, tx, ty) {
  * @param {mat2d} a the source matrix
  * @returns {mat2d} out
  */
-export function invert(out, a) {
-  let aa = a[0], ab = a[1], ac = a[2], ad = a[3];
-  let atx = a[4], aty = a[5];
+function invert(out, a) {
+  var aa = a[0],
+      ab = a[1],
+      ac = a[2],
+      ad = a[3];
+  var atx = a[4],
+      aty = a[5];
 
-  let det = aa * ad - ab * ac;
-  if(!det){
+  var det = aa * ad - ab * ac;
+  if (!det) {
     return null;
   }
   det = 1.0 / det;
@@ -181,7 +219,7 @@ export function invert(out, a) {
  * @param {mat2d} a the source matrix
  * @returns {Number} determinant of a
  */
-export function determinant(a) {
+function determinant(a) {
   return a[0] * a[3] - a[1] * a[2];
 }
 
@@ -193,9 +231,19 @@ export function determinant(a) {
  * @param {mat2d} b the second operand
  * @returns {mat2d} out
  */
-export function multiply(out, a, b) {
-  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
-  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5];
+function multiply(out, a, b) {
+  var a0 = a[0],
+      a1 = a[1],
+      a2 = a[2],
+      a3 = a[3],
+      a4 = a[4],
+      a5 = a[5];
+  var b0 = b[0],
+      b1 = b[1],
+      b2 = b[2],
+      b3 = b[3],
+      b4 = b[4],
+      b5 = b[5];
   out[0] = a0 * b0 + a2 * b1;
   out[1] = a1 * b0 + a3 * b1;
   out[2] = a0 * b2 + a2 * b3;
@@ -213,12 +261,17 @@ export function multiply(out, a, b) {
  * @param {Number} rad the angle to rotate the matrix by
  * @returns {mat2d} out
  */
-export function rotate(out, a, rad) {
-  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
-  let s = Math.sin(rad);
-  let c = Math.cos(rad);
-  out[0] = a0 *  c + a2 * s;
-  out[1] = a1 *  c + a3 * s;
+function rotate(out, a, rad) {
+  var a0 = a[0],
+      a1 = a[1],
+      a2 = a[2],
+      a3 = a[3],
+      a4 = a[4],
+      a5 = a[5];
+  var s = Math.sin(rad);
+  var c = Math.cos(rad);
+  out[0] = a0 * c + a2 * s;
+  out[1] = a1 * c + a3 * s;
   out[2] = a0 * -s + a2 * c;
   out[3] = a1 * -s + a3 * c;
   out[4] = a4;
@@ -234,9 +287,15 @@ export function rotate(out, a, rad) {
  * @param {vec2} v the vec2 to scale the matrix by
  * @returns {mat2d} out
  **/
-export function scale(out, a, v) {
-  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
-  let v0 = v[0], v1 = v[1];
+function scale(out, a, v) {
+  var a0 = a[0],
+      a1 = a[1],
+      a2 = a[2],
+      a3 = a[3],
+      a4 = a[4],
+      a5 = a[5];
+  var v0 = v[0],
+      v1 = v[1];
   out[0] = a0 * v0;
   out[1] = a1 * v0;
   out[2] = a2 * v1;
@@ -254,9 +313,15 @@ export function scale(out, a, v) {
  * @param {vec2} v the vec2 to translate the matrix by
  * @returns {mat2d} out
  **/
-export function translate(out, a, v) {
-  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
-  let v0 = v[0], v1 = v[1];
+function translate(out, a, v) {
+  var a0 = a[0],
+      a1 = a[1],
+      a2 = a[2],
+      a3 = a[3],
+      a4 = a[4],
+      a5 = a[5];
+  var v0 = v[0],
+      v1 = v[1];
   out[0] = a0;
   out[1] = a1;
   out[2] = a2;
@@ -277,8 +342,9 @@ export function translate(out, a, v) {
  * @param {Number} rad the angle to rotate the matrix by
  * @returns {mat2d} out
  */
-export function fromRotation(out, rad) {
-  let s = Math.sin(rad), c = Math.cos(rad);
+function fromRotation(out, rad) {
+  var s = Math.sin(rad),
+      c = Math.cos(rad);
   out[0] = c;
   out[1] = s;
   out[2] = -s;
@@ -299,7 +365,7 @@ export function fromRotation(out, rad) {
  * @param {vec2} v Scaling vector
  * @returns {mat2d} out
  */
-export function fromScaling(out, v) {
+function fromScaling(out, v) {
   out[0] = v[0];
   out[1] = 0;
   out[2] = 0;
@@ -320,7 +386,7 @@ export function fromScaling(out, v) {
  * @param {vec2} v Translation vector
  * @returns {mat2d} out
  */
-export function fromTranslation(out, v) {
+function fromTranslation(out, v) {
   out[0] = 1;
   out[1] = 0;
   out[2] = 0;
@@ -336,9 +402,8 @@ export function fromTranslation(out, v) {
  * @param {mat2d} a matrix to represent as a string
  * @returns {String} string representation of the matrix
  */
-export function str(a) {
-  return 'mat2d(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' +
-          a[3] + ', ' + a[4] + ', ' + a[5] + ')';
+function str(a) {
+  return 'mat2d(' + a[0] + ', ' + a[1] + ', ' + a[2] + ', ' + a[3] + ', ' + a[4] + ', ' + a[5] + ')';
 }
 
 /**
@@ -347,8 +412,8 @@ export function str(a) {
  * @param {mat2d} a the matrix to calculate Frobenius norm of
  * @returns {Number} Frobenius norm
  */
-export function frob(a) {
-  return(Math.sqrt(Math.pow(a[0], 2) + Math.pow(a[1], 2) + Math.pow(a[2], 2) + Math.pow(a[3], 2) + Math.pow(a[4], 2) + Math.pow(a[5], 2) + 1))
+function frob(a) {
+  return Math.sqrt(Math.pow(a[0], 2) + Math.pow(a[1], 2) + Math.pow(a[2], 2) + Math.pow(a[3], 2) + Math.pow(a[4], 2) + Math.pow(a[5], 2) + 1);
 }
 
 /**
@@ -359,7 +424,7 @@ export function frob(a) {
  * @param {mat2d} b the second operand
  * @returns {mat2d} out
  */
-export function add(out, a, b) {
+function add(out, a, b) {
   out[0] = a[0] + b[0];
   out[1] = a[1] + b[1];
   out[2] = a[2] + b[2];
@@ -377,7 +442,7 @@ export function add(out, a, b) {
  * @param {mat2d} b the second operand
  * @returns {mat2d} out
  */
-export function subtract(out, a, b) {
+function subtract(out, a, b) {
   out[0] = a[0] - b[0];
   out[1] = a[1] - b[1];
   out[2] = a[2] - b[2];
@@ -395,7 +460,7 @@ export function subtract(out, a, b) {
  * @param {Number} b amount to scale the matrix's elements by
  * @returns {mat2d} out
  */
-export function multiplyScalar(out, a, b) {
+function multiplyScalar(out, a, b) {
   out[0] = a[0] * b;
   out[1] = a[1] * b;
   out[2] = a[2] * b;
@@ -414,13 +479,13 @@ export function multiplyScalar(out, a, b) {
  * @param {Number} scale the amount to scale b's elements by before adding
  * @returns {mat2d} out
  */
-export function multiplyScalarAndAdd(out, a, b, scale) {
-  out[0] = a[0] + (b[0] * scale);
-  out[1] = a[1] + (b[1] * scale);
-  out[2] = a[2] + (b[2] * scale);
-  out[3] = a[3] + (b[3] * scale);
-  out[4] = a[4] + (b[4] * scale);
-  out[5] = a[5] + (b[5] * scale);
+function multiplyScalarAndAdd(out, a, b, scale) {
+  out[0] = a[0] + b[0] * scale;
+  out[1] = a[1] + b[1] * scale;
+  out[2] = a[2] + b[2] * scale;
+  out[3] = a[3] + b[3] * scale;
+  out[4] = a[4] + b[4] * scale;
+  out[5] = a[5] + b[5] * scale;
   return out;
 }
 
@@ -431,7 +496,7 @@ export function multiplyScalarAndAdd(out, a, b, scale) {
  * @param {mat2d} b The second matrix.
  * @returns {Boolean} True if the matrices are equal, false otherwise.
  */
-export function exactEquals(a, b) {
+function exactEquals(a, b) {
   return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3] && a[4] === b[4] && a[5] === b[5];
 }
 
@@ -442,25 +507,30 @@ export function exactEquals(a, b) {
  * @param {mat2d} b The second matrix.
  * @returns {Boolean} True if the matrices are equal, false otherwise.
  */
-export function equals(a, b) {
-  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3], a4 = a[4], a5 = a[5];
-  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3], b4 = b[4], b5 = b[5];
-  return (Math.abs(a0 - b0) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a0), Math.abs(b0)) &&
-          Math.abs(a1 - b1) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a1), Math.abs(b1)) &&
-          Math.abs(a2 - b2) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a2), Math.abs(b2)) &&
-          Math.abs(a3 - b3) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a3), Math.abs(b3)) &&
-          Math.abs(a4 - b4) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a4), Math.abs(b4)) &&
-          Math.abs(a5 - b5) <= glMatrix.EPSILON*Math.max(1.0, Math.abs(a5), Math.abs(b5)));
+function equals(a, b) {
+  var a0 = a[0],
+      a1 = a[1],
+      a2 = a[2],
+      a3 = a[3],
+      a4 = a[4],
+      a5 = a[5];
+  var b0 = b[0],
+      b1 = b[1],
+      b2 = b[2],
+      b3 = b[3],
+      b4 = b[4],
+      b5 = b[5];
+  return Math.abs(a0 - b0) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a0), Math.abs(b0)) && Math.abs(a1 - b1) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a1), Math.abs(b1)) && Math.abs(a2 - b2) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a2), Math.abs(b2)) && Math.abs(a3 - b3) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a3), Math.abs(b3)) && Math.abs(a4 - b4) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a4), Math.abs(b4)) && Math.abs(a5 - b5) <= glMatrix.EPSILON * Math.max(1.0, Math.abs(a5), Math.abs(b5));
 }
 
 /**
  * Alias for {@link mat2d.multiply}
  * @function
  */
-export const mul = multiply;
+var mul = exports.mul = multiply;
 
 /**
  * Alias for {@link mat2d.subtract}
  * @function
  */
-export const sub = subtract;
+var sub = exports.sub = subtract;
